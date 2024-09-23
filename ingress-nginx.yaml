@@ -1,0 +1,16 @@
+# ingress-nginx.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ingress-nginx
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: ingress-nginx
+  namespace: ingress-nginx
+rules:
+  # Add your RBAC rules here
+---
+# Add additional configurations for the ingress controller
+
