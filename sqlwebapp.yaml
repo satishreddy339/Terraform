@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sqlpad
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sqlpad
+  template:
+    metadata:
+      labels:
+        app: sqlpad
+    spec:
+      containers:
+      - name: sqlpad
+        image: sqlpad/sqlpad:latest  # Using SQLPad image from Docker Hub
+        env:
+        - name: SQLPAD_DB_URL
+          value: "postgres://sandbox_user:Aadhar@123@golden-system-436414-h2:asia-south1:sandbox-postgres-instance/sandbox_db"  # Connection string
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sqlpad-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 3000
+  selector:
+    app: sqlpad
+
